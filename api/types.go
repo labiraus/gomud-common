@@ -2,7 +2,8 @@ package api
 
 import (
 	"context"
-	"gomud/pkg/game"
+
+	"../game"
 )
 
 type userChan struct {
