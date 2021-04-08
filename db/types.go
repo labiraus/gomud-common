@@ -1,7 +1,7 @@
 package db
 
 import (
-	"../core"
+	"github.com/labiraus/gomud-common/core"
 
 	"gorm.io/gorm"
 )

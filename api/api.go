@@ -8,8 +8,6 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
-
-	"../game"
 )
 
 var (
@@ -40,19 +38,6 @@ func StartBasicApi(ctx context.Context, handler func(http.ResponseWriter, *http.
 	}()
 
 	return done
-}
-
-// Start begins the api
-func Start(g *game.Game) {
-	http.HandleFunc("/game", userChan{
-		userConnections: g.Users,
-		ctx:             g.Ctx,
-	}.gameHandler)
-	fmt.Println("starting game server")
-	err := http.ListenAndServe("0.0.0.0:8080", nil)
-	if err != nil {
-		panic("ListenAndServe: " + err.Error())
-	}
 }
 
 func UnmarshalRequest(bodyType validBody, request *http.Request) error {
