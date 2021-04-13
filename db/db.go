@@ -4,7 +4,7 @@ import (
 	"context"
 	"log"
 
-	"gorm.io/driver/sqlserver"
+	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
 
@@ -17,7 +17,9 @@ func Setup(ctx context.Context) {
 	}()
 
 	var err error
-	db, err = gorm.Open(sqlserver.Open("server=192.168.56.1;user id=sa;password=superStr0ng!Password;database=gomud"), &gorm.Config{})
+	dsn := "host=gomud-db-postgresql.gomud.svc.cluster.local user=gomud password=admin123 dbname=gomud port=5432 sslmode=disable TimeZone=Asia/Shanghai"
+	db, err = gorm.Open(postgres.Open(dsn), &gorm.Config{})
+
 	if err != nil {
 		log.Fatal("Error creating connection pool: " + err.Error())
 	}
