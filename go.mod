@@ -1,4 +1,4 @@
-module github.com/labiraus/gomud-common.git
+module github.com/labiraus/gomud-common
 
 go 1.16
 

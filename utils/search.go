@@ -4,7 +4,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/labiraus/gomud-common.git/core"
+	"github.com/labiraus/gomud-common/core"
 )
 
 //Search finds an entity in a room list
