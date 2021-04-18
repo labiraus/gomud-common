@@ -15,8 +15,10 @@ var db *gorm.DB
 func Setup(ctx context.Context) {
 	for {
 		var err error
-		dsn := "host=service-db-postgres.gomud.svc.cluster.local user=gomud password=admin123 dbname=gomud port=5432 sslmode=disable"
-		db, err = gorm.Open(postgres.Open(dsn), &gorm.Config{})
+		db, err = gorm.Open(postgres.New(postgres.Config{
+			DSN:                  "host=service-db-postgres.gomud user=gomud password=admin123 dbname=gomud port=5432",
+			PreferSimpleProtocol: true,
+		}), &gorm.Config{})
 
 		if err != nil {
 			log.Println("Error creating connection pool: " + err.Error())
@@ -26,8 +28,9 @@ func Setup(ctx context.Context) {
 		}
 
 		select {
-		case <-ctx.Done():
 		case <-time.After(5 * time.Second):
+		case <-ctx.Done():
+			return
 		}
 	}
 }
