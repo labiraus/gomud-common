@@ -2,6 +2,7 @@ package db
 
 import (
 	"context"
+	"fmt"
 	"log"
 	"time"
 
@@ -12,11 +13,11 @@ import (
 var db *gorm.DB
 
 //Setup connects to database instance
-func Setup(ctx context.Context) {
+func Setup(ctx context.Context, dbName, dbUser, dbPassword string) {
 	for {
 		var err error
 		db, err = gorm.Open(postgres.New(postgres.Config{
-			DSN:                  "host=service-db-postgres.gomud user=gomud password=admin123 dbname=gomud port=5432",
+			DSN:                  fmt.Sprintf("host=service-db-postgres.gomud user=%v password=%v dbname=%v port=5432", dbUser, dbPassword, dbName),
 			PreferSimpleProtocol: true,
 		}), &gorm.Config{})
 
