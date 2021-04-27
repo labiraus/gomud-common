@@ -18,8 +18,23 @@ type validBody interface {
 	Validate() error
 }
 
+func CallHttpEndpoint(ctx context.Context, request validBody, response validBody, app string) error {
+	address := fmt.Sprintf("http://%v.gomud:8080", app)
+	err := request.Validate()
+	if err != nil {
+		return err
+	}
+
+	body, err := Post(address, request)
+	if err != nil {
+		return err
+	}
+
+	return UnmarshalResponse(response, body)
+}
+
 //StartBasicApi starts a basic web server
-func StartBasicApi(ctx context.Context, handler func(http.ResponseWriter, *http.Request)) <-chan struct{} {
+func StartHttpServer(ctx context.Context, handler func(http.ResponseWriter, *http.Request)) <-chan struct{} {
 	done := make(chan struct{})
 	srv := &http.Server{Addr: "0.0.0.0:8080"}
 	http.HandleFunc("/", handler)
@@ -99,7 +114,6 @@ func Post(url string, request interface{}) (*http.Response, error) {
 		return nil, err
 	}
 
-	fmt.Printf("sending %#v to %v\n", string(data), url)
 	resp, err := client.Post(url, "application/json", bytes.NewBuffer(data))
 	if err != nil {
 		return nil, err
