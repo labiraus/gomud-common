@@ -15,5 +15,5 @@ message GreetingRequest {
 
 // The response message containing the greetings
 message GreetingReply {
-  string message = 1;
+  int32 message = 1;
 }
