@@ -1,7 +1,6 @@
 syntax = "proto3";
 import "google/protobuf/empty.proto";
 package api;
-option go_package = "github.com/labiraus/gomud-api/api";
 
 // The greeting service definition.
 service Hello {
