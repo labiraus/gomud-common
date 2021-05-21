@@ -1,6 +1,6 @@
 syntax = "proto3";
 package gomud_user;
-option go_package = "github.com/labiraus/gomud-common/gomud-user";
+option go_package = "github.com/labiraus/gomud-common/proto/gomud-user";
 
 // The greeting service definition.
 service Greeter {
